@@ -1,0 +1,17 @@
+#!/bin/bash -l
+#PBS -N CG
+#PBS -l nodes=2:ppn=32
+#PBS -l walltime=0:05:00
+#PBS -q siwir
+#PBS -N CG Solver
+#PBS -o $PBS_JOBNAME.out -e $PBS_JOBNAME.err
+
+. /etc/profile.d/modules.sh
+module load openmpi/1.8.1-ib
+module load gcc/4.9.2
+
+cd /home/stud/bu43jazu/SiWiR/aufgabe3/
+
+make clean
+make
+mpirun -np 20 ./cg 1200 10000 1000 -1
